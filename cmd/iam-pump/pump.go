@@ -7,18 +7,13 @@
 package main
 
 import (
-	"math/rand"
-	"time"
-
-	_ "go.uber.org/automaxprocs"
-
 	_ "go.uber.org/automaxprocs"
 
 	"github.com/marmotedu/iam/internal/pump"
 )
 
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
+	// rand.Seed(time.Now().UTC().UnixNano())
 
 	pump.NewApp("iam-pump").Run()
 }

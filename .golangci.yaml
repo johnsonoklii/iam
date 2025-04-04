@@ -715,20 +715,23 @@ linters:
   # inverted configuration with `enable-all` and `disable` is not scalable during updates of golangci-lint
   # enable-all: true
   disable-all: true
+  # disable:
+  #   - golint  # 禁用旧的 golint
   enable:
+    - revive  # 启用 revive
     - typecheck
     - asciicheck
     - bodyclose
     - cyclop
-    - deadcode
-    - depguard
+    # - deadcode
+    # - depguard # 禁用禁止使用指定的包
     - dogsled
     - dupl
     - durationcheck
     - errcheck
     - errorlint
     - exhaustive
-    - exportloopref
+    # - exportloopref
     - forbidigo
     - funlen
       #- gci
@@ -748,7 +751,7 @@ linters:
     - gosec
     - gosimple
     - govet
-    - ifshort
+    # - ifshort
     - importas
     - ineffassign
     - lll
@@ -768,20 +771,20 @@ linters:
     - rowserrcheck
     - sqlclosecheck
     - staticcheck
-    - structcheck
+    # - structcheck
     - stylecheck
     - thelper
     - tparallel
     - unconvert
     - unparam
     - unused
-    - varcheck
+    # - varcheck
     - wastedassign
     - whitespace
     - bidichk
     - wastedassign
-    - golint
-    - execinquery
+    # - golint
+    # - execinquery
     - nosprintfhostport
     - grouper
     - decorder
@@ -853,9 +856,9 @@ issues:
 
     - path: (pkg/app/.*)\.go
       linters:
-        - deadcode
+        # - deadcode
         - unused
-        - varcheck
+        # - varcheck
         - forbidigo
 
     # Exclude some staticcheck messages

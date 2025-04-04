@@ -79,7 +79,7 @@ func NewCmdHelloworld(f cmdutil.Factory, ioStreams genericclioptions.IOStreams) 
 		},
 		SuggestFor: []string{},
 		Args: func(cmd *cobra.Command, args []string) error {
-			// nolint: gomnd // no need
+			//nolint: gomnd // no need
 			if len(args) < 2 {
 				return cmdutil.UsageErrorf(cmd, helloworldUsageErrStr)
 			}

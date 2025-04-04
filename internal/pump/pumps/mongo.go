@@ -13,8 +13,8 @@ import (
 	"crypto/x509"
 	"encoding/pem"
 	"fmt"
-	"io/ioutil"
 	"net"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -78,7 +78,7 @@ type MongoConf struct {
 }
 
 func loadCertificateAndKeyFromFile(path string) (*tls.Certificate, error) {
-	raw, err := ioutil.ReadFile(path)
+	raw, err := os.ReadFile(path)
 	if err != nil {
 		return nil, errors.Wrap(err, "failed to read file")
 	}
@@ -159,7 +159,7 @@ func mongoDialInfo(conf BaseMongoConf) (dialInfo *mgo.DialInfo, err error) {
 
 			if conf.MongoSSLCAFile != "" {
 				var caCert []byte
-				caCert, err = ioutil.ReadFile(conf.MongoSSLCAFile)
+				caCert, err = os.ReadFile(conf.MongoSSLCAFile)
 				if err != nil {
 					log.Fatalf("Can't load mongo CA certificates: %s", err.Error())
 				}

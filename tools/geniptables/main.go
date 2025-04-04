@@ -7,7 +7,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"text/template"
@@ -134,7 +133,7 @@ func main() {
 		return
 	}
 
-	data, err := ioutil.ReadFile(*config)
+	data, err := os.ReadFile(*config)
 	if err != nil {
 		log.Fatalf("Read file error: %s", err.Error())
 	}
@@ -192,7 +191,7 @@ func main() {
 	}
 
 	if *output != "" {
-		if err := ioutil.WriteFile(*output, g.buf.Bytes(), 0o600); err != nil {
+		if err := os.WriteFile(*output, g.buf.Bytes(), 0o600); err != nil {
 			log.Fatalf("writing output: %s", err)
 		}
 

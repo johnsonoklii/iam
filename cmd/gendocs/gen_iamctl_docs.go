@@ -6,7 +6,7 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 
 	"github.com/spf13/cobra/doc"
@@ -35,6 +35,6 @@ func main() {
 	// regardless of where we run.
 	_ = os.Setenv("HOME", "/home/username")
 	// TODO os.Stdin should really be something like ioutil.Discard, but a Reader
-	iamctl := cmd.NewIAMCtlCommand(os.Stdin, ioutil.Discard, ioutil.Discard)
+	iamctl := cmd.NewIAMCtlCommand(os.Stdin, io.Discard, io.Discard)
 	_ = doc.GenMarkdownTree(iamctl, outDir)
 }

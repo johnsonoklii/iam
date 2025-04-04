@@ -236,7 +236,7 @@ func execPumpWriting(wg *sync.WaitGroup, pmp pumps.Pump, keys *[]interface{}, pu
 			log.Warnf("Error Writing to: %s - Error: %s", pmp.GetName(), err.Error())
 		}
 	case <-ctx.Done():
-		//nolint: errorlint
+
 		switch ctx.Err() {
 		case context.Canceled:
 			log.Warnf("The writing to %s have got canceled.", pmp.GetName())

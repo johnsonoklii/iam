@@ -7,14 +7,11 @@
 package main
 
 import (
-	"math/rand"
-	"time"
-
 	"github.com/marmotedu/iam/internal/authzserver"
 )
 
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
+	// rand.Seed(time.Now().UTC().UnixNano())
 
 	authzserver.NewApp("iam-authz-server").Run()
 }

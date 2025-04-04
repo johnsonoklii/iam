@@ -7,18 +7,13 @@
 package main
 
 import (
-	"math/rand"
-	"time"
-
-	_ "go.uber.org/automaxprocs"
-
 	_ "go.uber.org/automaxprocs"
 
 	"github.com/marmotedu/iam/internal/watcher"
 )
 
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
+	// rand.Seed(time.Now().UTC().UnixNano())
 
 	watcher.NewApp("iam-watcher").Run()
 }

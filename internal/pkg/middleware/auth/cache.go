@@ -58,7 +58,7 @@ func (cache CacheStrategy) AuthFunc() gin.HandlerFunc {
 
 		var rawJWT string
 		// Parse the header to get the token part.
-		fmt.Sscanf(header, "Bearer %s", &rawJWT)
+		_, _ = fmt.Sscanf(header, "Bearer %s", &rawJWT)
 
 		// Use own validation logic, see below
 		var secret Secret

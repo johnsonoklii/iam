@@ -95,7 +95,6 @@ func getOperator(ctx context.Context, conf ElasticsearchConf) (ElasticsearchOper
 		elastic.SetBasicAuth(conf.Username, conf.Password),
 		elastic.SetHttpClient(httpClient),
 	)
-
 	if err != nil {
 		return e, errors.Wrap(err, "failed to new es client")
 	}

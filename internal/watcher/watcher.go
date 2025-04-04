@@ -56,7 +56,7 @@ func newWatchJob(redisOptions *genericoptions.RedisOptions, watcherOptions *opti
 func (w *watchJob) addWatchers() *watchJob {
 	for name, watch := range watcher.ListWatchers() {
 		// log with `{"watcher": "counter"}` key-value to distinguish which watcher the log comes from.
-		//nolint: golint,staticcheck
+		//nolint: staticcheck
 		ctx := context.WithValue(context.Background(), log.KeyWatcherName, name)
 
 		if err := watch.Init(ctx, w.rs.NewMutex(name, redsync.WithExpiry(2*time.Hour)), w.config); err != nil {

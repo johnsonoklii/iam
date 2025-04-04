@@ -5,7 +5,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -27,14 +27,14 @@ func MarkdownPostProcessing(cmd *cobra.Command, dir string, processor func(strin
 	basename := strings.ReplaceAll(cmd.CommandPath(), " ", "_") + ".md"
 	filename := filepath.Join(dir, basename)
 
-	markdownBytes, err := ioutil.ReadFile(filepath.Clean(filename))
+	markdownBytes, err := os.ReadFile(filepath.Clean(filename))
 	if err != nil {
 		return err
 	}
 
 	processedMarkDown := processor(string(markdownBytes))
 
-	return ioutil.WriteFile(filename, []byte(processedMarkDown), 0o600)
+	return os.WriteFile(filename, []byte(processedMarkDown), 0o600)
 }
 
 // cleanupForInclude parts of markdown that will make difficult to use it as include in the website:

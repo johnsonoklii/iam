@@ -129,7 +129,7 @@ func migrateDatabase(db *gorm.DB) error {
 
 // resetDatabase resets the database tables.
 //
-//nolint:unused,deadcode // may be reused in the feature, or just show a migrate usage.
+//nolint:unused // may be reused in the feature, or just show a migrate usage.
 func resetDatabase(db *gorm.DB) error {
 	if err := cleanDatabase(db); err != nil {
 		return err
