@@ -76,11 +76,11 @@ go.lint: tools.verify.golangci-lint
 go.test: tools.verify.go-junit-report
 	@echo "===========> Run unit test"
 	@set -o pipefail; \
-		$(GO) test -race -cover -coverprofile=$(OUTPUT_DIR)/coverage.out \
-			-timeout=10m -shuffle=on -short -v \
-			$$(go list ./... | grep -Ev '^($(subst $(SPACE),'|',$(sort $(EXCLUDE_TESTS))))$$') \
-			2>&1 | \
-			tee >(go-junit-report --set-exit-code >$(OUTPUT_DIR)/report.xml)
+    go test -race -cover -coverprofile=$(OUTPUT_DIR)/coverage.out \
+        -timeout=10m -shuffle=on -short -v \
+        $$(go list ./... | grep -Ev '$(shell echo '$(EXCLUDE_TESTS)' | tr ' ' '|')') \
+        2>&1 | \
+        tee >(go-junit-report --set-exit-code >$(OUTPUT_DIR)/report.xml)
 	@sed -i '/mock_.*.go/d' $(OUTPUT_DIR)/coverage.out # remove mock_.*.go files from test coverage
 	@$(GO) tool cover -html=$(OUTPUT_DIR)/coverage.out -o $(OUTPUT_DIR)/coverage.html
 
