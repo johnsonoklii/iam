@@ -2,7 +2,7 @@ name: IamCI
 
 on: 
   push:
-    branches:  # 修正拼写错误：branchs → branches
+    branchs:  # 修正拼写错误：branchs → branches
       - '*'
   pull_request:
     types: [opened, reopened]
