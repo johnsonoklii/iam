@@ -1,18 +1,13 @@
-# Copyright 2020 Lingfei Kong <colin404@foxmail.com>. All rights reserved.
-# Use of this source code is governed by a MIT style
-# license that can be found in the LICENSE file.
-
 name: IamCI
 
 on: 
   push:
-    branchs:
-    - '*'
+    branches:  # 修正拼写错误：branchs → branches
+      - '*'
   pull_request:
     types: [opened, reopened]
 
 jobs:
-
   iamci:
     name: Test with go ${{ matrix.go_version }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -21,55 +16,47 @@ jobs:
 
     strategy:
       matrix:
-        go_version: [1.22]
+        go_version: ['1.22']  # 建议版本号加引号
         os: [ubuntu-latest]
 
     steps:
-
       - name: Set up Go ${{ matrix.go_version }}
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v4  # 升级到最新版
         with:
           go-version: ${{ matrix.go_version }}
-        id: go
 
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v2
+      - name: Check out code
+        uses: actions/checkout@v4  # 升级到最新版
 
       - name: Run go modules tidy
-        run: |
-          make tidy
+        run: make tidy
 
-      - name: Generate all necessary files, such as error code files
-        run: |
-          make gen
+      - name: Generate files
+        run: make gen
 
-      - name: Check syntax and styling of go sources
-        run: |
-          make lint
+      - name: Lint check
+        run: make lint
 
-      - name: Run unit test and get test coverage
-        run: |
-          make cover
+      - name: Unit test with coverage
+        run: make cover
 
-      - name: Build source code for host platform
-        run: |
-          make build
+      - name: Build for host platform
+        run: make build
 
-      - name: Collect Test Coverage File
-        uses: actions/upload-artifact@v1.0.0
+      - name: Upload Coverage Artifact
+        uses: actions/upload-artifact@v4  # 关键升级：v1 → v4
         with:
-          name: main-output
+          name: coverage-report
           path: _output/coverage.out
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2  # 升级到 v2
 
       - name: Login to DockerHub
-        uses: docker/login-action@v1 
+        uses: docker/login-action@v2  # 升级到 v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build docker images for host arch and push images to registry
-        run: |
-          make push
+      - name: Build and Push Docker Images
+        run: make push
